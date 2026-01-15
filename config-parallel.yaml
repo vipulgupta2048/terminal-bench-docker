@@ -1,0 +1,57 @@
+# =============================================================================
+# Harbor Configuration - Parallel Mode (8 concurrent tasks)
+# =============================================================================
+#
+# This configuration runs multiple tasks in parallel.
+# Good for:
+#   - Running the full benchmark suite quickly
+#   - Machines with plenty of RAM (16GB+) and CPU
+#   - Production benchmark runs
+#
+# RESOURCE USAGE:
+#   Each container uses ~2-4GB RAM
+#   8 concurrent = ~16-32GB RAM recommended
+#   Adjust n_concurrent_trials based on your machine
+#
+# USAGE:
+#   harbor run -c config-parallel.yaml -d terminal-bench@2.0
+#
+# Or use the run_test.sh script:
+#   ./run_test.sh -c 8
+#
+# =============================================================================
+
+# Agent configuration
+agents:
+  # IMPORTANT: Update the import_path to match your agent
+  # Format: module_name:ClassName
+  - import_path: my_agent:MyAgent
+
+    # Maximum time per task (in seconds)
+    override_timeout_sec: 600
+
+# Dataset configuration
+datasets:
+  - name: terminal-bench
+    registry: {}
+
+# Environment configuration
+environment:
+  type: docker
+  network_mode: host
+
+  # Optional: Use a pre-built image
+  # image: my-agent-image
+
+# Orchestrator configuration (parallel execution)
+orchestrator:
+  # Number of tasks to run simultaneously
+  # Recommendations:
+  #   - 8GB RAM:  2-4 concurrent
+  #   - 16GB RAM: 4-8 concurrent
+  #   - 32GB RAM: 8-16 concurrent
+  n_concurrent_trials: 8
+
+  # Optional: Retry failed tasks
+  # retry_on_failure: true
+  # max_retries: 2

@@ -1,0 +1,118 @@
+#!/bin/bash
+# =============================================================================
+# Agent Installation Script Template (Jinja2)
+# =============================================================================
+#
+# This script runs inside the Docker container during the setup phase.
+# It should install all dependencies your agent needs to run.
+#
+# WHAT TO INCLUDE:
+# - System packages (apt-get install)
+# - Runtime environments (Node.js, Python, etc.)
+# - Your agent CLI tool
+# - Any other dependencies
+#
+# JINJA2 VARIABLES:
+# You can use {{ variable_name }} syntax to inject values from
+# _template_variables in your agent class.
+#
+# Example:
+#   {{ node_version }}  -> "20"
+#   {{ agent_package }} -> "my-agent-cli"
+#
+# TIPS:
+# - Combine apt-get commands to reduce layers
+# - Clean up after installation (rm -rf /var/lib/apt/lists/*)
+# - Verify each installation step succeeded
+# - Print diagnostic info for debugging
+# =============================================================================
+
+set -e  # Exit on any error
+
+echo "=== Installing Agent Dependencies ==="
+
+# -----------------------------------------------------------------------------
+# Step 1: Install System Dependencies
+# -----------------------------------------------------------------------------
+# Common packages needed by most agents:
+# - curl: Download files
+# - ca-certificates: HTTPS support
+# - gnupg: GPG key management (for apt repos)
+# - expect: PTY emulation for interactive agents
+# - git: Version control (many tasks involve git)
+
+apt-get update
+apt-get install -y \
+    curl \
+    ca-certificates \
+    gnupg \
+    expect \
+    git
+
+# -----------------------------------------------------------------------------
+# Step 2: Install Runtime Environment (CUSTOMIZE THIS)
+# -----------------------------------------------------------------------------
+# Uncomment and modify the section that matches your agent:
+
+# === Option A: Node.js (for npm-based agents) ===
+# mkdir -p /etc/apt/keyrings
+# curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+# echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+# apt-get update
+# apt-get install -y nodejs
+# echo "Node.js version: $(node --version)"
+# echo "npm version: $(npm --version)"
+
+# === Option B: Python (for pip-based agents) ===
+# apt-get install -y python3 python3-pip python3-venv
+# echo "Python version: $(python3 --version)"
+# echo "pip version: $(pip3 --version)"
+
+# === Option C: Both Node.js and Python ===
+# (Combine the commands from both options above)
+
+# -----------------------------------------------------------------------------
+# Step 3: Install Your Agent CLI (CUSTOMIZE THIS)
+# -----------------------------------------------------------------------------
+# Uncomment and modify for your agent:
+
+# === npm-based installation ===
+# npm install -g my-agent-cli
+# echo "Agent installed at: $(which my-agent)"
+
+# === pip-based installation ===
+# pip3 install my-agent-cli
+# echo "Agent installed at: $(which my-agent)"
+
+# === Binary download ===
+# curl -L https://example.com/my-agent-linux-amd64 -o /usr/local/bin/my-agent
+# chmod +x /usr/local/bin/my-agent
+# echo "Agent installed at: /usr/local/bin/my-agent"
+
+# -----------------------------------------------------------------------------
+# Step 4: Verify Installation
+# -----------------------------------------------------------------------------
+echo ""
+echo "=== Verifying Installation ==="
+
+# Check that required commands exist
+for cmd in curl git expect; do
+    if command -v $cmd &> /dev/null; then
+        echo "  [OK] $cmd"
+    else
+        echo "  [FAIL] $cmd not found!"
+        exit 1
+    fi
+done
+
+# Verify your agent is installed (CUSTOMIZE THIS)
+# if command -v my-agent &> /dev/null; then
+#     echo "  [OK] my-agent at $(which my-agent)"
+#     my-agent --version || true
+# else
+#     echo "  [FAIL] my-agent not found!"
+#     exit 1
+# fi
+
+echo ""
+echo "=== Installation Complete ==="

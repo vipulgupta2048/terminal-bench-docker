@@ -1,0 +1,138 @@
+# =============================================================================
+# Terminal-Bench Docker Setup - Git Ignore
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Benchmark Results & Outputs (generated at runtime)
+# -----------------------------------------------------------------------------
+jobs/
+results/
+random_results_*/
+*.json.tmp
+
+# -----------------------------------------------------------------------------
+# Python
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# -----------------------------------------------------------------------------
+# Virtual Environments
+# -----------------------------------------------------------------------------
+venv/
+.venv/
+ENV/
+env/
+.conda/
+
+# -----------------------------------------------------------------------------
+# SENSITIVE - Authentication & Credentials
+# NEVER commit these files!
+# -----------------------------------------------------------------------------
+
+# Common agent config directories (contain API keys/tokens)
+.commandcode/
+.claude/
+.anthropic/
+.aider/
+.cursor/
+.openai/
+.my_agent/
+
+# Environment files
+.env
+.env.*
+.env.local
+.env.*.local
+
+# Credentials and secrets
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+secrets.yaml
+secrets.yml
+auth.json
+token.json
+models.json
+
+# SSH keys (if accidentally placed here)
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+
+# -----------------------------------------------------------------------------
+# Docker
+# -----------------------------------------------------------------------------
+*.tar
+docker-compose.override.yml
+.docker/
+
+# -----------------------------------------------------------------------------
+# IDE & Editors
+# -----------------------------------------------------------------------------
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+*.sublime-*
+*.code-workspace
+
+# -----------------------------------------------------------------------------
+# OS Files
+# -----------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# -----------------------------------------------------------------------------
+# Testing & Coverage
+# -----------------------------------------------------------------------------
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# -----------------------------------------------------------------------------
+# Jupyter
+# -----------------------------------------------------------------------------
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# -----------------------------------------------------------------------------
+# Logs
+# -----------------------------------------------------------------------------
+*.log
+logs/

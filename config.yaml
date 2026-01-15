@@ -1,0 +1,53 @@
+# =============================================================================
+# Harbor Configuration - Sequential Mode
+# =============================================================================
+#
+# This configuration runs tasks one at a time (sequential).
+# Good for:
+#   - Initial testing and debugging
+#   - Low-resource machines
+#   - When you need to watch logs in real-time
+#
+# USAGE:
+#   harbor run -c config.yaml -d terminal-bench@2.0
+#
+# Or use the run_test.sh script (which uses this config automatically)
+#
+# =============================================================================
+
+# Agent configuration
+agents:
+  # IMPORTANT: Update the import_path to match your agent
+  # Format: module_name:ClassName
+  - import_path: my_agent:MyAgent
+
+    # Maximum time per task (in seconds)
+    # Default: 600 (10 minutes)
+    # Increase for complex tasks that need more time
+    override_timeout_sec: 600
+
+# Dataset configuration
+datasets:
+  # Terminal-Bench 2.0 benchmark suite
+  - name: terminal-bench
+
+    # Registry configuration (uses default remote registry)
+    # You can override to use a local registry if needed:
+    # registry:
+    #   type: local
+    #   path: /path/to/local/registry
+    registry: {}
+
+# Environment configuration
+environment:
+  # Run in Docker containers
+  type: docker
+
+  # Network mode: 'host' allows containers to access your machine's network
+  # Required for agents that need to call external APIs
+  # Other options: 'bridge' (default, isolated), 'none' (no network)
+  network_mode: host
+
+  # Optional: Use a pre-built image (speeds up runs)
+  # Uncomment and set your image name after running ./build-image.sh
+  # image: my-agent-image
