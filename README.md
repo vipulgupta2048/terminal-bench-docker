@@ -2,7 +2,10 @@
 
 Run your AI coding agents against [Terminal-Bench 2.0](https://www.tbench.ai/) using Docker.
 
-> **New to this?** Read the full setup guide: [Running Terminal-Bench on Docker](https://mixster.dev/2026/01/15/terminal-bench-docker/)
+> **New to this?** Read the full setup guide: [Running Terminal-Bench on Docker](https://mixster.dev/2026/01/15/terminal-bench-docker/), [Announcement Tweet](https://x.com/vipulgupta2048/status/2013271908754845799?s=20)!
+
+[<img width="1306" height="740" alt="Mixster terminal bench docker blog" src="https://github.com/user-attachments/assets/72a2e5c0-ae99-4062-9a71-41598ae1e6c9" />](https://mixster.dev/2026/01/15/terminal-bench-docker/)
+
 
 ## Prerequisites
 
